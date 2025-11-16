@@ -1,7 +1,6 @@
 import Contact from "../models/contactModel.js";
 
-// GET all contacts
-export const getContacts = async (req, res) => {
+export const getAllContacts = async (req, res) => {
   try {
     const contacts = await Contact.find();
     res.status(200).json(contacts);
@@ -10,7 +9,6 @@ export const getContacts = async (req, res) => {
   }
 };
 
-// GET contact by id
 export const getContactById = async (req, res) => {
   try {
     const contact = await Contact.findById(req.params.id);
@@ -20,7 +18,6 @@ export const getContactById = async (req, res) => {
   }
 };
 
-// POST - add new contact
 export const addContact = async (req, res) => {
   try {
     const newContact = new Contact(req.body);
@@ -31,7 +28,6 @@ export const addContact = async (req, res) => {
   }
 };
 
-// PUT - update contact
 export const updateContact = async (req, res) => {
   try {
     const updated = await Contact.findByIdAndUpdate(
@@ -45,7 +41,6 @@ export const updateContact = async (req, res) => {
   }
 };
 
-// DELETE contact by id
 export const deleteContact = async (req, res) => {
   try {
     await Contact.findByIdAndDelete(req.params.id);
@@ -55,7 +50,6 @@ export const deleteContact = async (req, res) => {
   }
 };
 
-// DELETE all contacts
 export const deleteAllContacts = async (req, res) => {
   try {
     await Contact.deleteMany();

@@ -1,16 +1,17 @@
 import express from "express"
 import mongoose from "mongoose"
-import dotenv from "dotenv"
-import cors from "cors"
+import dotenv from "dotenv";
+import path from "path";import cors from "cors"
 import contactRoutes from "./routes/contactRoutes.js";
 import projectRoutes from "./routes/projectRoutes.js";
 import qualificationRoutes from "./routes/qualificationRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import { verifyToken } from "./middleware/authMiddleware.js";
+import serviceRoutes from "./routes/serviceRoutes.js";
 
 
-dotenv.config()
+dotenv.config({ path: path.resolve(".env") });
 
 const app = express()
 app.use(express.json())
@@ -34,6 +35,8 @@ app.use("/api/projects", projectRoutes);
 app.use("/api/qualifications", qualificationRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/services", serviceRoutes);
+
 
 app.get("/api/protected", verifyToken, (req, res) => {
   res.json({ message: "Protected route accessed!" });

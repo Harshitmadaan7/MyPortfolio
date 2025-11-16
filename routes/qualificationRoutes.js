@@ -1,4 +1,7 @@
 import express from "express";
+import { verifyToken } from "../middleware/authMiddleware.js";
+import { isAdmin } from "../middleware/roleMiddleware.js";
+
 import {
   getQualifications,
   getQualificationById,
