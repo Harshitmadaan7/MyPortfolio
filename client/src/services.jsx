@@ -6,6 +6,7 @@
 
 import React, { useState, useEffect } from "react";
 import "./index.css";
+import API_BASE_URL from "./config";
 
 const staticServices = [
   { title: "Web Development", desc: "React + Vite frontends, REST APIs." },
@@ -23,7 +24,7 @@ export default function Services() {
   });
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/services")
+    fetch(`${API_BASE_URL}/api/services`)
       .then((res) => res.json())
       .then((data) => setServices(data))
       .catch((err) => console.error("Error fetching services:", err));
@@ -38,8 +39,8 @@ export default function Services() {
     try {
       const method = form._id ? "PUT" : "POST";
       const url = form._id
-        ? `http://localhost:5000/api/services/${form._id}`
-        : "http://localhost:5000/api/services";
+        ? `${API_BASE_URL}/api/services/${form._id}`
+        : `${API_BASE_URL}/api/services`;
 
       const res = await fetch(url, {
         method,

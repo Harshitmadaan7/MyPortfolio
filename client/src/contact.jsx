@@ -6,6 +6,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import API_BASE_URL from "./config";
 
 export default function Contact() {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -20,7 +21,7 @@ export default function Contact() {
   });
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/contacts")
+    fetch(`${API_BASE_URL}/api/contacts`)
       .then((res) => res.json())
       .then((data) => setContacts(data))
       .catch((err) => console.error("Error loading contacts:", err));
@@ -35,8 +36,8 @@ export default function Contact() {
     try {
       const method = form._id ? "PUT" : "POST";
       const url = form._id
-        ? `http://localhost:5000/api/contacts/${form._id}`
-        : "http://localhost:5000/api/contacts";
+        ? `${API_BASE_URL}/api/contacts/${form._id}`
+        : `${API_BASE_URL}/api/contacts`;
 
       const res = await fetch(url, {
         method,
@@ -51,7 +52,7 @@ export default function Contact() {
       if (res.ok) {
         alert(form._id ? "✅ Contact updated!" : "✅ Contact added!");
         setForm({ firstname: "", lastname: "", email: "" });
-        const updated = await fetch("http://localhost:5000/api/contacts");
+        const updated = await fetch(`${API_BASE_URL}/api/contacts`);
         setContacts(await updated.json());
       } else {
         alert("❌ Operation failed");
@@ -74,7 +75,7 @@ export default function Contact() {
   if (!window.confirm("Are you sure you want to delete this contact?")) return;
 
   try {
-    const res = await fetch(`http://localhost:5000/api/contacts/${id}`, {
+    const res = await fetch(`${API_BASE_URL}/api/contacts/${id}`, {
       method: "DELETE",
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token"),

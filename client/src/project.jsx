@@ -6,6 +6,7 @@
 
 import React, { useState, useEffect } from "react";
 import "./index.css";
+import API_BASE_URL from "./config";
 
 
 const staticProjects = [
@@ -44,7 +45,7 @@ export default function Projects() {
   });
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/projects")
+    fetch(`${API_BASE_URL}/api/projects`)
       .then((res) => res.json())
       .then((data) => setProjects(data))
       .catch((err) => console.error("Error fetching projects:", err));
@@ -59,8 +60,8 @@ export default function Projects() {
     try {
       const method = form._id ? "PUT" : "POST";
       const url = form._id
-        ? `http://localhost:5000/api/projects/${form._id}`
-        : "http://localhost:5000/api/projects";
+        ? `${API_BASE_URL}/api/projects/${form._id}`
+        : `${API_BASE_URL}/api/projects`;
 
       const res = await fetch(url, {
         method,
@@ -81,7 +82,7 @@ export default function Projects() {
           completion: "",
           description: "",
         });
-        const updated = await fetch("http://localhost:5000/api/projects");
+        const updated = await fetch(`${API_BASE_URL}/api/projects`);
         setProjects(await updated.json());
       } else {
         alert("❌ Operation failed");
@@ -95,7 +96,7 @@ export default function Projects() {
   if (!window.confirm("Are you sure you want to delete this project?")) return;
 
   try {
-    const res = await fetch(`http://localhost:5000/api/projects/${id}`, {
+    const res = await fetch(`${API_BASE_URL}/api/projects/${id}`, {
       method: "DELETE",
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token"),

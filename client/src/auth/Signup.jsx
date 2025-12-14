@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "../Auth.css";
+import API_BASE_URL from "../config";
 
 export default function Signup() {
   const [name, setName] = useState("");
@@ -11,7 +12,7 @@ export default function Signup() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("http://localhost:5000/api/users", {
+      const res = await fetch(`${API_BASE_URL}/api/users`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
