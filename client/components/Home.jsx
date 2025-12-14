@@ -12,6 +12,13 @@ export default function Home(){
       <h1>Welcome — I'm Harshit</h1>
       <p>Student & aspiring full-stack developer. Mission: Build practical, maintainable web apps that help small businesses.</p>
       <p><Link to="/about"><button>Learn more about me</button></Link></p>
+      <p className="cicd-demo">
+         <p>
+  This application uses CI/CD with GitHub and Netlify for automatic deployment.
+</p>
+
+      </p>
+
     </section>
     </div>
   );
